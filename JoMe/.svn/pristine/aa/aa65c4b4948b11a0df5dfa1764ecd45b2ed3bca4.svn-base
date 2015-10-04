@@ -1,0 +1,11 @@
+package com.nfreespace.app.android.JoMe;
+
+
+
+public class GetCategory1 {
+
+//	ArrayList al = new ArrayList(); 
+	String username;
+	String Profile_pic;
+	
+}

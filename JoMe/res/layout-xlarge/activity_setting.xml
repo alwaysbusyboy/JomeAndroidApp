@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#3099b9" >
+
+        <Button
+            android:id="@+id/btnBrowser"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/nav_browser_icon" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Setting"
+            android:textColor="#FFFFFF"
+            android:textSize="50sp" />
+
+        <Button
+            android:id="@+id/btnBell"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/nav_bell_icon" />
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="120" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+            <Button
+                android:id="@+id/btnFriendUpdate"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_friend_update" />
+            
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3099b9" >
+            
+            <Button
+                android:id="@+id/btnEventHistory"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_past_event" />
+            
+        </RelativeLayout>
+        
+         
+       <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+            <Button
+                android:id="@+id/btnMessage"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_messager" />
+            
+        </RelativeLayout>
+        
+       <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="20"
+           android:background="#3099b9" >
+            
+            <Button
+                android:id="@+id/btnSetting"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_setting" />
+            
+        </RelativeLayout>
+        
+           
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+        	<Button
+        	    android:id="@+id/btnInvitationManager"
+        	    style="?android:attr/buttonBarButtonStyle"
+        	    android:layout_width="120dp"
+        	    android:layout_height="120dp"
+        	    android:layout_centerInParent="true"
+        	    android:layout_weight="20"
+        	    android:background="@drawable/bottom_profile" />
+
+        </RelativeLayout>
+       
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3099b9" >
+            
+	        <Button
+	            android:id="@+id/btnHome"
+	            style="?android:attr/buttonBarButtonStyle"
+	            android:layout_width="120dp"
+	            android:layout_height="120dp"
+	            android:layout_centerInParent="true"
+	            android:layout_weight="20"
+	            android:background="@drawable/bottom_home" />
+
+        </RelativeLayout>
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:id="@+id/adlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/linearLayout1"
+        android:layout_centerHorizontal="true" >
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/setting_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@id/adlayout"
+        android:layout_below="@id/relativeLayout1"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" >
+        
+        <TextView
+            android:id="@+id/radius_text"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="left|center_vertical"
+            android:text="SEARCH RADIUS "
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+        
+        <RelativeLayout
+            android:id="@+id/line_layout"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/radius_text"
+            android:background="#3099b9" >
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/radius_value_layout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/line_layout" >
+            
+            <SeekBar
+                android:id="@+id/seekbar_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="100dp"
+                android:max="20000"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp"
+                android:progress="30"
+                android:progressDrawable="@drawable/seek_bar"
+                android:thumb="@drawable/seekbar_pin_bg" />
+
+        	<TextView
+        	    android:id="@+id/searchradius_value"
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:layout_alignParentLeft="true"
+        	    android:layout_centerVertical="true"
+        	    android:text="30 km"
+        	    android:textColor="#000000"
+        	    android:textSize="30sp" />
+            
+        </RelativeLayout>
+        
+         <TextView
+             android:id="@+id/people_text"
+             android:layout_width="match_parent"
+             android:layout_height="80dp"
+             android:layout_below="@id/radius_value_layout"
+             android:gravity="left|center_vertical"
+             android:text="PEOPLES"
+             android:textColor="#000000"
+             android:textSize="30sp"
+             android:textStyle="bold" />
+        
+        <RelativeLayout
+            android:id="@+id/line_layout2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/people_text"
+            android:background="#3099b9" >
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/myfollowers_layout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/line_layout2"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_rect_bg"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:text="View my followers"
+            android:textColor="#000000"
+            android:textSize="40sp" />
+            
+        <TextView
+            android:id="@+id/follow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/myfollowers_layout"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_rect_bg"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:text="View peoples that I follow"
+            android:textColor="#000000"
+            android:textSize="40sp" />
+      
+      
+    </RelativeLayout>
+
+</RelativeLayout>

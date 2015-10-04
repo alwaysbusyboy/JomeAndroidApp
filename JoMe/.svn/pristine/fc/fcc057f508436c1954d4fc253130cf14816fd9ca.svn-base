@@ -1,0 +1,174 @@
+package com.nfreespace.app.android.JoMe;
+
+import java.util.Calendar;
+
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
+import android.widget.TimePicker;
+
+public class set_date_time extends Activity{
+	
+	TextView txtshowtime , txtshowtimeEnd ,txtDone ;
+     TimePicker timepicker1; 
+     private int hour;
+     private int minute;
+     static final int TIME_DIALOG_ID = 0;
+     static final int TIME_DIALOG_ID1 = 1;
+     
+     
+     @Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.set_time);
+		
+		txtshowtime = (TextView) findViewById(R.id.txtshowtime);
+		txtshowtimeEnd = (TextView) findViewById(R.id.txtshowtimeEnd);
+		txtDone = (TextView) findViewById(R.id.txtDone);
+		
+		 timepicker1=(TimePicker)findViewById(R.id.timePicker1); 
+		 
+		 final Calendar c = Calendar.getInstance();
+			hour = c.get(Calendar.HOUR_OF_DAY);
+			minute = c.get(Calendar.MINUTE);  
+			
+			txtshowtime.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					showDialog(TIME_DIALOG_ID);
+				}
+			});
+			
+			txtshowtimeEnd.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					showDialog(TIME_DIALOG_ID1);
+				}
+			});
+			
+          txtDone.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Bundle b = new Bundle();
+					  b.putString("txtshowtime", txtshowtime.getText().toString());
+		                
+		                //Add the set of extended data to the intent and start it
+		                Intent intent = new Intent();
+		                intent.putExtras(b);
+		                setResult(RESULT_OK,intent);      
+		                finish();
+		
+				}
+			});
+			
+
+	          
+
+			 
+			 txtshowtime.setText(
+                 new StringBuilder().append(pad(hour))
+                                    .append(":").append(pad(minute)));
+			 
+			 txtshowtimeEnd.setText(
+	                 new StringBuilder().append(pad(hour))
+	                                    .append(":").append(pad(minute)));
+		 
+			 timepicker1.setCurrentHour(hour);
+			 timepicker1.setCurrentMinute(minute);
+		 
+		}
+     
+     public void getParameters() {
+    	 
+         if (set_date_time.this.getIntent().getExtras() != null)
+         {
+             Bundle bundle = this.getIntent().getExtras();
+             
+             txtshowtime = (TextView) findViewById(R.id.txtshowtime);
+             txtshowtime.setText(bundle.getString("txtshowtime"));
+         }
+  
+     }
+	
+
+	
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case TIME_DIALOG_ID:
+			// set time picker as current time
+			return new TimePickerDialog(this, 
+                                        timePickerListener1, hour, minute,false);
+ 
+		
+		
+		case TIME_DIALOG_ID1:
+			// set time picker as current time
+			return new TimePickerDialog(this, 
+                                        timePickerListener, hour, minute,false);
+	}
+		return null;
+	}
+
+	private TimePickerDialog.OnTimeSetListener timePickerListener1 = 
+            new TimePickerDialog.OnTimeSetListener() {
+		public void onTimeSet(TimePicker view, int selectedHour,
+				int selectedMinute) {
+			hour = selectedHour;
+			minute = selectedMinute;
+ 
+			// set current time into textview
+			txtshowtime.setText(new StringBuilder().append(pad(hour))
+					.append(":").append(pad(minute)));
+			
+		
+ 
+			// set current time into timepicker
+			timepicker1.setCurrentHour(hour);
+			timepicker1.setCurrentMinute(minute); 
+ 
+		}
+	};
+	
+	private TimePickerDialog.OnTimeSetListener timePickerListener = 
+            new TimePickerDialog.OnTimeSetListener() {
+		public void onTimeSet(TimePicker view, int selectedHour,
+				int selectedMinute) {
+			hour = selectedHour;
+			minute = selectedMinute;
+ 
+			
+			txtshowtimeEnd.setText(new StringBuilder().append(pad(hour))
+					.append(":").append(pad(minute)));
+ 
+			// set current time into timepicker
+			timepicker1.setCurrentHour(hour);
+			timepicker1.setCurrentMinute(minute); 
+ 
+		}
+	};
+	
+    private static String pad(int c) {
+		if (c >= 10)
+		   return String.valueOf(c);
+		else
+		   return "0" + String.valueOf(c);
+	}
+
+    
+   	
+
+
+}

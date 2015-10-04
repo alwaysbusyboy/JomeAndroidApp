@@ -1,0 +1,6 @@
+package com.nfreespace.app.android.JoMe;
+
+public class LocationInfo {
+public String mLatitude,mLongitude,mLocation_name,mLocation_id,mHeading_degrees,mSubtitle,mText;
+}
+//"latitude":"51.6377","longitude":"0.330342","location_name":"SHENFIELD HIGH SCHOOL","location_id":"75692","heading_degrees":"42","subtitle":"sample subtitle","text":"sample text"

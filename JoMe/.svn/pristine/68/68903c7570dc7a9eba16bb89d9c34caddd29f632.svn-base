@@ -1,0 +1,772 @@
+package com.example.event_app;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.facebook.HttpMethod;
+import com.facebook.LoggingBehavior;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.Session.OpenRequest;
+import com.facebook.SessionLoginBehavior;
+import com.facebook.SessionState;
+import com.facebook.Settings;
+import com.facebook.model.GraphObject;
+import com.facebook.model.GraphUser;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+public class login_fb extends Activity {
+	private Session.StatusCallback statusCallback = new SessionStatusCallback();
+	TextView txt;
+	String token,url1;
+	String fb_ids="";
+	Response responsefriends;
+	@Override
+	  public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.login_fb);
+txt=(TextView)findViewById(R.id.textView1_facebooklogin);
+
+Settings.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
+	    Session session = Session.getActiveSession();
+		if (session == null) {
+			if (savedInstanceState != null) {
+				session = Session.restoreSession(this, null, statusCallback,
+						savedInstanceState);
+			}
+			if (session == null) {
+				session = new Session(this);
+			}
+			Session.setActiveSession(session);
+			if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
+
+			
+				 System.out.println("main ");
+				session.openForRead(new Session.OpenRequest(this)
+						.setCallback(statusCallback));
+				
+				System.out.println("already logined");
+				token=session.getAccessToken();
+				System.out.println("token"+token);
+				System.out.println(session);
+				
+				
+			}
+		}
+	    txt.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				/*
+				 Session session = Session.getActiveSession();
+				    if (!session.isOpened() && !session.isClosed()) {
+				        session.openForRead(new Session.OpenRequest(FacebookLogin.this)
+				            .setPermissions(Arrays.asList("public_profile","id","email","friends"))
+				            .setCallback(statusCallback));
+				    } else {
+				        Session.openActiveSession(FacebookLogin.this, true, statusCallback);
+				    }*/
+				
+				
+			/*	
+			    Session.openActiveSession(FacebookLogin.this, true, new Session.StatusCallback() {
+
+			      // callback when session changes state
+			    	Session.openForRead(new Session.OpenRequest(FacebookLogin.this).setPermissions(
+							  Arrays.asList("id", "email", "firstname", "lastname","friends"))
+							new Session.StatusCallback() {
+			     
+				@Override
+				public void call(final Session session, SessionState state,
+						Exception exception) {
+					
+					
+					// TODO Auto-generated method stub
+					if (session.isOpened()) {
+						
+						
+						Session.NewPermissionsRequest newPermissionsRequest = new Session
+			                    .NewPermissionsRequest(FacebookLogin.this, Arrays.asList("id","email"));
+
+			            session.requestNewReadPermissions(newPermissionsRequest);
+
+				          // make request to the /me API
+				          Request.newMeRequest(session, new Request.GraphUserCallback() {
+
+				            // callback after Graph API response with user object
+							@Override
+							public void onCompleted(GraphUser user, Response response) {
+								// TODO Auto-generated method stub
+								token=session.getAccessToken();
+								
+								System.out.println(response);
+								
+								System.out.println("token"+token);
+								System.out.println("login successful");
+								new Login_webservice().execute();
+							}
+				          }).executeAsync();
+						new Request(session, "/me/friends", null,
+								HttpMethod.GET, new Request.Callback() {
+
+									@Override
+									public void onCompleted(
+											Response response) {
+										// TODO Auto-generated method stub
+
+									System.out.println(response);	
+																					}
+								}).executeAsync();
+				        }
+				}
+			    });*/
+				
+				
+				
+			/*	 Session currentSession = Session.getActiveSession();
+				    if (currentSession == null || currentSession.getState().isClosed()) {
+				        Session session = new Session.Builder(FacebookLogin.this).build();
+				        Session.setActiveSession(session);
+				        currentSession = session;
+				    }
+
+				    if (currentSession.isOpened()) {
+				        // Do whatever u want. User has logged in
+
+				    } else if (!currentSession.isOpened()) {
+				        // Ask for username and password
+				        OpenRequest op = new Session.OpenRequest(FacebookLogin.this);
+
+				        op.setLoginBehavior(SessionLoginBehavior.SUPPRESS_SSO);
+				        op.setCallback(null);
+
+				        List<String> permissions = new ArrayList<String>();
+				        permissions.add("publish_stream");
+				        permissions.add("user_likes");
+				        permissions.add("email");
+				        permissions.add("user_birthday");
+				        op.setPermissions(permissions);
+
+				        Session session = new Builder(FacebookLogin.this).build();
+				        Session.setActiveSession(session);
+				        session.openForPublish(op);
+				    }
+				*/
+				
+				Session.OpenRequest request = new Session.OpenRequest(login_fb.this);
+				request.setPermissions(Arrays.asList("user_about_me", "email","user_birthday","user_location","user_hometown"));
+				request.setCallback(statusCallback );
+
+				// get active session
+				Session mFacebookSession = Session.getActiveSession();
+				if (mFacebookSession == null || mFacebookSession.isClosed()) 
+				{
+				    mFacebookSession = new Session(login_fb.this);
+				}
+				mFacebookSession.openForRead(request);
+			}
+		} );
+	    
+	   
+	  }
+	@Override
+	public void onStart() {
+		super.onStart();
+		Session.getActiveSession().addCallback(statusCallback);
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		Session.getActiveSession().removeCallback(statusCallback);
+	}
+
+	  @Override
+	  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	     /* super.onActivityResult(requestCode, resultCode, data);
+	     // Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+	      
+	      super.onActivityResult(requestCode, resultCode, data);
+			if (Session.getActiveSession() != null)
+				Session.getActiveSession().onActivityResult(this, requestCode,
+						resultCode, data);
+
+			Session currentSession = Session.getActiveSession();
+			if (currentSession == null || currentSession.getState().isClosed()) {
+				Session session = new Session.Builder(FacebookLogin.this)
+						.build();
+				Session.setActiveSession(session);
+				currentSession = session;
+			}*/
+		  super.onActivityResult(requestCode, resultCode, data);
+		    if (Session.getActiveSession() != null)
+		        Session.getActiveSession().onActivityResult(this, requestCode,
+		                resultCode, data);
+
+		    Session currentSession = Session.getActiveSession();
+		    if (currentSession == null || currentSession.getState().isClosed()) {
+		        Session session = new Session.Builder(login_fb.this).build();
+		        Session.setActiveSession(session);
+		        currentSession = session;
+		    }
+
+		    if (currentSession.isOpened()) {
+		        Session.openActiveSession(this, true, new Session.StatusCallback() {
+
+		            @Override
+		            public void call(final Session session, SessionState state,
+		                    Exception exception) {
+
+		                if (session.isOpened()) {
+		                	
+		                	/* Request.newMeRequest(session, new Request.GraphUserCallback() {
+
+						            // callback after Graph API response with user object
+									@Override
+									public void onCompleted(GraphUser user, Response response) {
+										// TODO Auto-generated method stub
+										token=session.getAccessToken();
+										
+										System.out.println(response);
+										
+										System.out.println("token"+token);
+										System.out.println("login successful");
+										new Login_webservice().execute();
+									}
+						          }).executeAsync();*/
+
+		                   /* Request.executeMeRequestAsync(session,
+		                            new Request.GraphUserCallback() {
+
+		                                @Override
+		                                public void onCompleted(GraphUser user,
+		                                        Response response) {
+		                                    if (user != null) {
+
+		                                        TextView welcome = (TextView) findViewById(R.id.welcome);
+		                                        welcome.setText("Hello "
+		                                                + user.getName() + "!");
+
+		                                        access_token = session
+		                                                .getAccessToken();
+		                                        firstName = user.getFirstName();
+		                                        fb_user_id = user.getId();
+
+		                                        System.out
+		                                                .println("Facebook Access token: "
+		                                                        + access_token);
+		                                        System.out.println("First Name:"
+		                                                + firstName);
+		                                        System.out.println("FB USER ID: "
+		                                                + fb_user_id);
+
+		                                    }
+		                                }
+		                            });*/
+		                }
+		            }
+		        });
+		    }
+	  }
+	  @Override
+		protected void onSaveInstanceState(Bundle outState) {
+			super.onSaveInstanceState(outState);
+			Session session = Session.getActiveSession();
+			Session.saveSession(session, outState);
+		}
+
+		private class SessionStatusCallback implements Session.StatusCallback {
+			@Override
+			public void call(Session session, SessionState state,
+					Exception exception) {
+				if (session.isOpened()) {
+				System.out.println("session is opened");
+				new Request(session, "/me/friends", null,
+						HttpMethod.GET, new Request.Callback() {
+
+							@Override
+							public void onCompleted(
+									Response response) {
+								// TODO Auto-generated method stub
+responsefriends=response;
+							//System.out.println(response);	
+								
+							  new Login_webservice().execute();
+							
+																			}
+						}).executeAsync();	
+				token=session.getAccessToken();
+            	
+            url1="https://graph.facebook.com/v2.0/me?fields=id,name,picture.type(large),email,location,gender,birthday,hometown,first_name,last_name&access_token="+token;
+          
+            	
+				// updateView();
+            
+           }
+			}}
+		private class Login_webservice extends AsyncTask<String, Integer, String> {
+			
+			
+			  String lastname,success_login,firstname,message,guardian_type,email,gender,guardiantype; 
+			  String userprofilepic;
+			InputStream is;
+			String result;
+			JSONObject jArray = null;
+			String picurl;
+			String iD,emailID,birthDay,hometown;
+			ProgressDialog dialog = new ProgressDialog(login_fb.this);
+			 @Override
+		        protected void onPreExecute() {
+				// Toast.makeText(Login.this,"asynch task",Toast.LENGTH_LONG).show();
+				 dialog.setMessage("Loading....please wait ");
+					dialog.setCancelable(false);
+				dialog.show();
+		        }
+			
+			@Override
+			public String doInBackground(String... url) {
+			//String url_login = "https://graph.facebook.com/v1.0/me?fields=id,name,picture,friends,email&access_token"+token;
+				
+				GraphObject go = responsefriends.getGraphObject();
+				JSONObject json = go.getInnerJSONObject();
+				JSONArray jsonarray = null;
+				try {
+					jsonarray = json.getJSONArray("data");
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				for (int i = 0; i < jsonarray.length(); i++) {
+					try {
+						JSONObject c = jsonarray.getJSONObject(i);
+
+						if (fb_ids.equals("")) {
+							fb_ids = "'" + c.getString("id") + "'";
+						} else {
+							fb_ids = fb_ids + ",'" + c.getString("id") + "'";
+						}
+
+					} catch (JSONException e) {
+
+						e.printStackTrace();
+					}
+				}
+				
+				try{
+					System.out.println("Asynch task started");
+				HttpClient httpclient = new DefaultHttpClient();
+				
+				HttpGet httppost = new HttpGet(url1);
+				HttpResponse response = httpclient.execute(httppost);
+				HttpEntity entity = response.getEntity();
+				 is = entity.getContent();
+			} catch (Exception e) {
+				Log.e("ERROR", "Error in http connection " + e.toString());
+			}
+			// convert response to string
+			try {
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(is), 8);
+				StringBuilder sb = new StringBuilder();
+				String line = null;
+				while ((line = reader.readLine()) != null) {
+					sb.append(line + "\n");
+				}
+				is.close();
+				result = sb.toString();
+
+			} catch (Exception e) {
+				Log.e("ERROR", "Error converting result " + e.toString());
+			}
+			Log.d("is","is-------"+result);
+			JSONObject json1 = null;
+			try {
+				 json1= new JSONObject(result);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			try {
+				
+			 iD= json1.getString("id");
+			 
+			 GlobalVariable.facebook_ID=iD;
+				 emailID= json1.getString("email");
+			 birthDay=json1.getString("birthday");
+				 firstname=json1.getString("first_name");
+				 lastname= json1.getString("last_name");
+				 gender=json1.getString("gender");
+				JSONObject jsonOb= json1.getJSONObject("picture");
+				JSONObject jsonpicture=jsonOb.getJSONObject("data");
+				
+				 picurl=jsonpicture.getString("url");
+				JSONObject home=json1.getJSONObject("hometown");
+				
+				 hometown=home.getString("name");
+				
+				
+				System.out.println(iD);
+				System.out.println(emailID);
+				System.out.println(birthDay);
+				System.out.println(firstname);
+				System.out.println(lastname);
+				System.out.println(picurl);
+				System.out.println(hometown);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			DefaultHttpClient httpclient;
+			HttpPost httppost;
+			try {
+				 httpclient = new DefaultHttpClient();
+				 httppost = new HttpPost(
+						"http://112.196.34.179/playdate/guardian.php");
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Server response error");
+				return null;
+			}
+			
+			if(gender.equalsIgnoreCase("male")){
+				guardiantype="F";
+			}
+			if(gender.equalsIgnoreCase("female")){
+				guardiantype="M";
+			}
+			
+			 //http://112.196.34.179/playdate/guardian.php?token=&firstname=bb&lastname=bb&email=bb@gmail.com&facebook_id=294&password=123&guardian_type=m&dob=1989-12-11&location=123&set_fixed_freetime=123&profile_image=&friend_fbid=%272%27
+			
+						// http://112.196.34.179/playdate/guardian.php?token=&firstname=dfh&lastname=hdf&email=vakul13@gmail.com&facebook_id=64&password=12345&guardian_type=m&friend_fbid=%272%27,%273%27
+						// url="http://112.196.34.179/playdate/guardian.phptoken=&firstname="+firstname+"&lastname="+lastname+"&email="+emailid+"&facebook_id=1&password=123&guardian_type=m";
+			//http://112.196.34.179/playdate/guardian.php?firstname=aa&lastname=bb&email=cc@gmail.com&facebook_id=6935&guardian_type=m&dob=1989-12-11&location=123&set_fixed_freetime=123&gender=0&phone=123456986&profile_image=&friend_fbid=%272%27	
+			
+						ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+						
+						nameValuePairs.add(new BasicNameValuePair("firstname", firstname));
+						nameValuePairs.add(new BasicNameValuePair("lastname", lastname));
+						nameValuePairs.add(new BasicNameValuePair("email", emailID));
+						nameValuePairs.add(new BasicNameValuePair("facebook_id", iD));
+						
+						
+						nameValuePairs.add(new BasicNameValuePair("guardian_type", guardiantype));
+						nameValuePairs.add(new BasicNameValuePair("dob", birthDay));
+						nameValuePairs.add(new BasicNameValuePair("location", hometown));
+						nameValuePairs.add(new BasicNameValuePair("set_fixed_freetime", ""));
+						nameValuePairs.add(new BasicNameValuePair("gender", gender));
+						nameValuePairs.add(new BasicNameValuePair("phone", ""));
+						nameValuePairs.add(new BasicNameValuePair("profile_image", picurl));
+						nameValuePairs.add(new BasicNameValuePair("friend_fbid", fb_ids));
+						Log.d("nameValuePairs", "nameValuePairs" + nameValuePairs);
+						Log.d("nameValuePairs", "nameValuePairs" + nameValuePairs);
+						Log.d("nameValuePairs", "nameValuePairs" + nameValuePairs);
+
+						StringBuilder sbb = new StringBuilder();
+
+						sbb.append("http://112.196.34.179/playdate/guardian.php?");
+						sbb.append(nameValuePairs.get(0) + "&");
+						sbb.append(nameValuePairs.get(1) + "&");
+						sbb.append(nameValuePairs.get(2) + "&");
+						sbb.append(nameValuePairs.get(3) + "&");
+						sbb.append(nameValuePairs.get(4) + "&");
+						sbb.append(nameValuePairs.get(5) + "&");
+						sbb.append(nameValuePairs.get(6) + "&");
+						sbb.append(nameValuePairs.get(7) + "&");
+						sbb.append(nameValuePairs.get(8) + "&");
+						sbb.append(nameValuePairs.get(9) + "&");
+						sbb.append(nameValuePairs.get(10) + "&");
+						sbb.append(nameValuePairs.get(11));
+					
+
+						System.out.println("string builder...\n" + sbb);
+
+						try {
+							httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+							System.out.println(httppost);
+						} catch (UnsupportedEncodingException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
+						HttpResponse response = null;
+						try {
+							response = httpclient.execute(httppost);
+						} catch (ClientProtocolException e) {
+
+							System.out.println("response catch block");
+							e.printStackTrace();
+						} catch (IOException e) {
+
+							e.printStackTrace();
+						}
+						if (response != null) {
+
+							HttpEntity entityy = response.getEntity();
+							try {
+								is = entityy.getContent();
+							} catch (IllegalStateException e) {
+
+								System.out.println("is catch block");
+								e.printStackTrace();
+							} catch (IOException e) {
+
+								e.printStackTrace();
+								System.out.println("is catch block");
+							}
+
+						}
+
+						if (is != null) {
+
+							StringBuilder sb = new StringBuilder();
+							BufferedReader reader = null;
+							try {
+								reader = new BufferedReader(new InputStreamReader(is,
+										"iso-8859-1"), 8);
+							} catch (UnsupportedEncodingException e) {
+
+								e.printStackTrace();
+							}
+
+							System.out.println("66666666666666");
+
+							sb = new StringBuilder();
+							try {
+								sb.append(reader.readLine() + "\n");
+							} catch (IOException e) {
+
+								e.printStackTrace();
+								System.out.println("sb catch block");
+							}
+
+							System.out.println("77777777777");
+							String line = "0";
+							try {
+								while ((line = reader.readLine()) != null) {
+									sb.append(line + "\n");
+
+								}
+							} catch (IOException e) {
+
+								e.printStackTrace();
+								System.out.println("reader.read line catch block");
+							}
+
+							try {
+								is.close();
+							} catch (IOException e) {
+
+								e.printStackTrace();
+								System.out.println("is close catch block");
+							}
+							System.out.println("88888888888888");
+							System.out.println(sb);
+							result = sb.toString();
+						}
+			
+						
+						try {
+							JSONObject userdetail= new JSONObject(result);
+							JSONObject detailReturned= userdetail.getJSONObject("userinfo");
+							
+							String userfirstname = detailReturned.getString("firstname"); 
+							String userlastname = detailReturned.getString("lastname"); 
+							String userlocation = detailReturned.getString("location"); 
+							String userdob = detailReturned.getString("dob"); 
+							String useremail = detailReturned.getString("email"); 
+							String userphone = detailReturned.getString("phone"); 
+							String usergender = detailReturned.getString("gender"); 
+							String userguardiantype = detailReturned.getString("guardian_type"); 
+							String userfreetime = detailReturned.getString("set_fixed_freetime"); 
+							 userprofilepic = detailReturned.getString("profile_image"); 
+							System.out.println(userfirstname);
+							System.out.println(userlastname);
+							System.out.println(userlocation);
+							System.out.println(userdob);
+							System.out.println(useremail);
+							System.out.println(userphone);
+							System.out.println(usergender);
+							System.out.println(userguardiantype);
+							System.out.println(userfreetime);
+							System.out.println(userprofilepic);
+							System.out.println(userfirstname);
+							
+							
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			
+					/*	URL url2;
+						try {
+							url2 = new URL(picurl);
+							System.out.println("urlllllll");
+							URLConnection connection = url2.openConnection();
+							connection.setUseCaches(true);
+							Object response1 = connection.getContent();
+							if (response1 instanceof Bitmap) {
+								System.out.println("bitmap returned");
+							  Bitmap bitmap = (Bitmap)response1;
+							  
+							  System.out.println(bitmap);
+							} 
+						} catch (MalformedURLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}*/
+						
+			
+			
+			
+			
+				/*try {
+					jArray = new JSONObject(result);
+					JSONObject data = jArray.getJSONObject("data");
+					
+					if(data.has("firstname")){
+						 firstname=data.getString("firstname");
+							Log.d("is","firstname-------"+firstname);
+							 lastname=data.getString("lastname");
+							Log.d("is","lastname-------"+lastname);
+							 email=data.getString("email");
+							Log.d("is","email-------"+email);
+						//	 guardian_type=data.getString("guardian_type");
+							//Log.d("is","guardian_type-------"+guardian_type);
+							 success_login=data.getString("success");
+							Log.d("is","success_login-------"+success_login);
+							message=jArray.getString("msg");
+							Log.d("is","message-------"+message);
+					}
+					else{
+						 success_login=data.getString("success");
+							Log.d("is","success_login-------"+success_login);
+							message=jArray.getString("msg");
+							Log.d("is","message-------"+message);
+					}
+					
+				} catch (JSONException e) {
+					// TODO: handle exception
+				}*/
+
+			
+			
+			return null;
+			}
+			/*private boolean containsIgnoreCase(String haystack, String needle) {
+				// TODO Auto-generated method stub
+				 if(needle.equals(""))
+					    return true;
+					  if(haystack == null || needle == null || haystack .equals(""))
+					    return false; 
+
+					  Pattern p = Pattern.compile(needle,Pattern.CASE_INSENSITIVE+Pattern.LITERAL);
+					  Matcher m = p.matcher(haystack);
+					  return m.find();
+			}*/
+
+			public void onPostExecute(String resultt)
+			
+			{
+				dialog.dismiss();
+				ImageView imageview = null;
+			//	new DownloadImageTask(imageview).execute(picurl);
+				Intent it = new Intent(login_fb.this, CreateEventPage1.class);
+				it.putExtra("url", picurl);
+				it.putExtra("name", firstname+" "+lastname);
+				startActivity(it);
+				
+				/*if(success_login.equals("1")){
+				//Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
+				Intent it=new Intent(FacebookLogin.this,Home.class);
+				startActivity(it);
+			}else if(success_login.equals("0")){
+				Toast.makeText(FacebookLogin.this,"Login Failed",Toast.LENGTH_LONG).show();
+			}*/
+				}
+		    }
+		
+		 private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+			  ImageView bmImage;
+			  ProgressDialog dialog = new ProgressDialog(login_fb.this);
+			  protected void onPreExecute() {
+
+			   super.onPreExecute();
+
+			   dialog = new ProgressDialog(login_fb.this);
+			   dialog.setMessage("Loading....please wait ");
+			   dialog.setCancelable(false);
+			   dialog.show();
+			  }
+
+			  //
+			  public DownloadImageTask(ImageView bmImage) {
+			   this.bmImage = bmImage;
+			  }
+
+			  protected Bitmap doInBackground(String... urls) {
+			   String urldisplay = urls[0];
+			   Bitmap mIcon11 = null;
+			   try {
+			    InputStream in = new java.net.URL(urldisplay).openStream();
+			    mIcon11 = BitmapFactory.decodeStream(in);
+			   } catch (Exception e) {
+			    Log.e("Error", e.getMessage());
+			    e.printStackTrace();
+			   }
+			   return mIcon11;
+			  }
+
+	}
+	
+
+}

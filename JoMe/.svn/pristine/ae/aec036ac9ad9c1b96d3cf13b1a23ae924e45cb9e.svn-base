@@ -1,0 +1,158 @@
+package com.connection;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.example.event_app.EventInfo;
+import com.example.event_app.LocationInfo;
+
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.util.Log;
+
+
+public class Connection {
+  
+public ArrayList<LocationInfo> searchLocation(Context mContext,String mUrl){	
+	HttpClient httpclient = new DefaultHttpClient();
+    HttpPost httppost = new HttpPost(mUrl);
+    ArrayList<LocationInfo> mLocationInfo = null;
+    
+    try {
+		HttpResponse response = httpclient.execute(httppost);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+		
+			
+			
+			String result=sb.toString();
+			mLocationInfo=new ArrayList<LocationInfo>();
+			Log.d("sssssssssssssss", "ssssssssssssssssssssssss"+result.toString());
+			JSONObject _jsonObject = new JSONObject(result);
+			JSONArray _jsonArray = _jsonObject.getJSONArray("markers");
+			for(int i=0;i<_jsonArray.length();i++){
+				JSONObject _jsonObject1 = _jsonArray.getJSONObject(i);
+				LocationInfo _locationInfo=new LocationInfo();
+				_locationInfo.mLatitude=_jsonObject1.getString("latitude");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+_locationInfo.mLatitude);
+				
+				_locationInfo.mLongitude=_jsonObject1.getString("longitude");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+_locationInfo.mLatitude);
+				
+				_locationInfo.mLocation_name=_jsonObject1.getString("location_name");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+_locationInfo.mLatitude);
+				
+				_locationInfo.mLocation_id=_jsonObject1.getString("location_id");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+_locationInfo.mLocation_id);
+				
+				_locationInfo.mHeading_degrees=_jsonObject1.getString("heading_degrees");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+_locationInfo.mHeading_degrees);
+				
+				_locationInfo.mSubtitle=_jsonObject1.getString("subtitle");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+_locationInfo.mSubtitle);
+				
+				_locationInfo.mText=_jsonObject1.getString("text");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+_locationInfo.mText);
+	
+				mLocationInfo.add(_locationInfo);
+				
+		
+			}
+			
+			
+    } catch (Exception e) {
+		e.printStackTrace();
+	}
+    
+    return mLocationInfo;
+	
+}
+
+
+//http://i-film.co.uk/webservices/detail.php?location_id=75692
+
+
+
+public ArrayList<EventInfo> eventInfo(Context mContext,String mUrl){	
+	HttpClient httpclient = new DefaultHttpClient();
+    HttpPost httppost = new HttpPost(mUrl);
+    ArrayList<EventInfo> mEventInfoAl = null;
+    
+    try {
+		HttpResponse response = httpclient.execute(httppost);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+		
+			String result=sb.toString();
+			mEventInfoAl=new ArrayList<EventInfo>();
+			Log.d("sssssssssssssss", "ssssssssssssssssssssssss"+result.toString());
+			JSONObject _jsonObject = new JSONObject(result);
+			JSONArray _jsonArray = _jsonObject.getJSONArray("details");
+			for(int i=0;i<_jsonArray.length();i++){
+				JSONObject _jsonObject1 = _jsonArray.getJSONObject(i);
+				EventInfo mEventInfo=new EventInfo();
+				mEventInfo.mEventid=_jsonObject1.getString("eventid");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+mEventInfo.mEventid);
+				
+				mEventInfo.mEventname=_jsonObject1.getString("eventname");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+mEventInfo.mEventname);
+				
+				mEventInfo.mEventplace=_jsonObject1.getString("eventplace");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+mEventInfo.mEventplace);
+				
+				mEventInfo.mDetailText=_jsonObject1.getString("detailText");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+mEventInfo.mDetailText);
+				
+				mEventInfo.mDetailTime=_jsonObject1.getString("detailTime");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+mEventInfo.mDetailTime);
+				
+				mEventInfo.mIsCancelled=_jsonObject1.getString("isCancelled");
+				Log.d("sizeeeeeeeeeeeeeeeeeeeee",""+mEventInfo.mIsCancelled);
+				
+				
+	
+				mEventInfoAl.add(mEventInfo);
+				
+				//mEventid,mEventname,mEventplace,mDetailText,mDetailTime,mIsRealTime,mIsCancelled	
+			}
+			//{"eventid":"254","eventname":"254","eventplace":"Holloway","detailText":"3 sample","detailTime":"10:21","isRealTime":true,"isCancelled":false}			
+			
+    } catch (Exception e) {
+		e.printStackTrace();
+	}
+    
+    return mEventInfoAl;
+	
+}
+
+
+public boolean connectionAvailable(Context _context)
+{
+	boolean connected = false;
+	ConnectivityManager connectivityManager = (ConnectivityManager)_context. getSystemService(Context.CONNECTIVITY_SERVICE);
+	if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTING
+			|| connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED){
+
+		connected = true;
+	}
+	Log.e("Connection Availableeeeeeeeeeeeee ","Connection     dddddddddddd  " + connected);
+	return connected;
+}
+}

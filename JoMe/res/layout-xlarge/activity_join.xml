@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#3099b9" >
+
+        <Button
+            android:id="@+id/btnBrowser"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/nav_browser_icon" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/headerText"
+            android:textColor="#FFFFFF"
+            android:textSize="50sp" />
+
+        <Button
+            android:id="@+id/btnBell"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/nav_bell_icon" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="120" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+            <Button
+                android:id="@+id/btnFriendUpdate"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_friend_update" />
+            
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3099b9" >
+            
+            <Button
+                android:id="@+id/btnEventHistory"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_past_event" />
+            
+        </RelativeLayout>
+        
+         
+       <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+            <Button
+                android:id="@+id/btnMessage"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_messager" />
+            
+        </RelativeLayout>
+        
+       <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="20"
+           android:background="#3099b9" >
+            
+            <Button
+                android:id="@+id/btnSetting"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_setting" />
+            
+        </RelativeLayout>
+        
+           
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+        	<Button
+        	    android:id="@+id/btnInvitationManager"
+        	    style="?android:attr/buttonBarButtonStyle"
+        	    android:layout_width="120dp"
+        	    android:layout_height="120dp"
+        	    android:layout_centerInParent="true"
+        	    android:layout_weight="20"
+        	    android:background="@drawable/bottom_profile" />
+
+        </RelativeLayout>
+       
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3099b9" >
+            
+	        <Button
+	            android:id="@+id/btnHome"
+	            style="?android:attr/buttonBarButtonStyle"
+	            android:layout_width="120dp"
+	            android:layout_height="120dp"
+	            android:layout_centerInParent="true"
+	            android:layout_weight="20"
+	            android:background="@drawable/bottom_home" />
+
+        </RelativeLayout>
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:id="@+id/adlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/linearLayout1"
+        android:layout_centerHorizontal="true" >
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/adlayout"
+        android:layout_below="@id/relativeLayout1" >
+        
+        <FrameLayout
+        	android:id="@+id/join_frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        
+    </RelativeLayout>
+</RelativeLayout>

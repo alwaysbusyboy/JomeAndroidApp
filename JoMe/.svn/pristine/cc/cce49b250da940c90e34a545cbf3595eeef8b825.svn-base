@@ -1,0 +1,290 @@
+package com.nfreespace.app.android.JoMe;
+
+import java.io.IOException;
+import java.util.List;
+
+import android.content.Intent;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+
+
+
+public class add_venue extends FragmentActivity implements LocationListener {
+	
+	static LatLng HAMBURG = new LatLng(40.551974, -105.037181);
+	LatLng point;
+	BitmapDescriptor icon ;
+	MarkerOptions markerOptions;
+	Marker kiel;
+	Button 	btnCross,search;
+	private  String coordl1, coordl11 ,coordl2, coordl22;
+    Double l1,l11,l2,l22;
+    GoogleMap map;
+	LocationManager locationManager ;
+    String provider;
+    ListView nearbylist;
+	 
+	  
+
+	  
+//	  private static final LatLng BROOKLYN_BRIDGE = new LatLng(40.7057, -73.9964);
+
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.add_venue);
+		
+		nearbylist = (ListView) findViewById(R.id.nearbylist);
+		
+		btnCross = (Button) findViewById(R.id.btnCrose);
+		
+		// Cross button coding
+		btnCross.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent itCrose = new Intent(getApplicationContext(),
+						CreateEventPage1.class);
+				startActivity(itCrose);
+			}
+		});
+		// ---end of cross button
+		
+
+		icon = BitmapDescriptorFactory.fromResource(R.drawable.pin_red);
+        map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+  		
+        // Getting LocationManager object from System Service LOCATION_SERVICE
+  				 locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+  	   // Creating a criteria object to retrieve provider
+  				Criteria criteria = new Criteria();
+
+  	   // Getting the name of the best provider
+  				 provider = locationManager.getBestProvider(criteria, true);
+  				
+                if(provider!=null && !provider.equals("")){
+  		           
+  		            // Get the location from the given provider
+  		            Location location = locationManager.getLastKnownLocation(provider);
+  		             locationManager.requestLocationUpdates(provider, 20000, 1, this);	            
+  				        if (location != null) 
+  					    onLocationChanged(location);
+  					  else
+  		                Toast.makeText(getBaseContext(), "Location can't be retrieved", Toast.LENGTH_SHORT).show();
+  		               }
+  		             else{
+  		                Toast.makeText(getBaseContext(), "No Provider Found", Toast.LENGTH_SHORT).show();
+  	           	} 
+  				
+  		  
+  				// Getting reference to btn_find of the layout activity_main
+  		        Button btn_find = (Button) findViewById(R.id.btn_find);
+  		       
+  		        // Defining button click event listener for the find button
+  		        OnClickListener findClickListener = new OnClickListener() {           
+  		            @Override
+  		            public void onClick(View v) {
+  		                // Getting reference to EditText to get the user input location
+  		                EditText etLocation = (EditText) findViewById(R.id.et_location);
+  		               
+  		                // Getting user input location
+  		                String location = etLocation.getText().toString();
+  		               
+  		                if(location!=null && !location.equals("")){
+  		                    new GeocoderTask().execute(location);
+  		                }
+  		            }
+  		        };
+  		        
+  		      btn_find.setOnClickListener(findClickListener);     
+
+  
+
+		
+	 }
+	
+	 private class GeocoderTask extends AsyncTask<String, Void, List<Address>>{
+
+         @Override
+         protected List<Address> doInBackground(String... locationName) {
+             // Creating an instance of Geocoder class
+             Geocoder geocoder = new Geocoder(getBaseContext());
+             List<Address> addresses = null;
+            
+             try {
+                 // Getting a maximum of 3 Address that matches the input text
+                 addresses = geocoder.getFromLocationName(locationName[0], 3);
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }           
+             return addresses;
+             
+            }
+         
+         @Override
+         protected void onPostExecute(List<Address> addresses) {           
+            
+             if(addresses==null || addresses.size()==0){
+                 Toast.makeText(getBaseContext(), "No Location found", Toast.LENGTH_SHORT).show();
+             }
+            
+             // Clears all the existing markers on the map
+             map.clear();
+            
+             // Adding Markers on Google Map for each matching address
+             for(int i=0;i<addresses.size();i++){               
+                
+                 Address address = (Address) addresses.get(i);
+                
+                 // Creating an instance of GeoPoint, to display in Google Map
+                 point = new LatLng(address.getLatitude(), address.getLongitude());
+                
+                 String addressText = String.format("%s, %s",
+                         address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
+                         address.getCountryName());
+                 // Setting position for the marker
+              
+                 markerOptions = new MarkerOptions();
+                 markerOptions.position(point);
+                 markerOptions.title(addressText);
+              // Setting title for the infowindow
+                markerOptions.title(point.latitude + ","+point.longitude);
+                
+  
+                map.addMarker(markerOptions).setIcon(icon);
+                
+                     l1=point.latitude;
+                     l2=point.longitude;
+                    coordl1 = l1.toString();
+                     coordl2 = l2.toString();
+                 l1 = Double.parseDouble(coordl1);
+                 l2 = Double.parseDouble(coordl2);
+                
+                 System.out.println(coordl1+".....hellooooo loglatiii......"+coordl2);
+                
+                
+                 // Locate the first location
+                 if(i==0)   
+                    
+                	 map.animateCamera(CameraUpdateFactory.newLatLng(point));    
+                
+                
+                 CameraPosition camPos = new CameraPosition.Builder().target(point).zoom(15).build();
+                 CameraUpdate cam = CameraUpdateFactory.newCameraPosition(camPos);
+                 map.animateCamera(cam);
+                
+             
+                
+                /* Intent searchAddress = new  Intent(Intent.ACTION_VIEW,Uri.parse("geo:0,0?q="+addresses));
+                 startActivity(searchAddress);  */
+             }           
+         }   
+    
+        
+     }
+	
+	@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			// Inflate the menu; this adds items to the action bar if it is
+			// present.
+			getMenuInflater().inflate(R.menu.main, menu);
+			return true;
+		}
+
+	
+
+
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		 // Getting reference to TextView tv_longitude
+		
+        TextView tvLongitude = (TextView)findViewById(R.id.tv_longitude);
+       
+        // Getting reference to TextView tv_latitude
+        TextView tvLatitude = (TextView)findViewById(R.id.tv_latitude);
+       
+        // Setting Current Longitude
+        tvLongitude.setText("Longitude:" + location.getLongitude());
+       
+        // Setting Current Latitude
+        tvLatitude.setText("Latitude:" + location.getLatitude() );
+        
+        l11=location.getLatitude();
+        l22=location.getLongitude();
+        point = new LatLng(l11, l22);
+
+		kiel = ((GoogleMap) map)
+				.addMarker(new MarkerOptions()
+						.position(point)
+						.title("My current location")
+						.snippet(" ")
+						.icon(BitmapDescriptorFactory
+								.fromResource(R.drawable.pin_red)));
+
+		map.moveCamera(CameraUpdateFactory.newLatLng(point));
+		map.animateCamera(CameraUpdateFactory.zoomTo(12));
+       
+        coordl11 = l11.toString();
+        coordl22 = l22.toString();
+       l11 = Double.parseDouble(coordl11);
+       l22 = Double.parseDouble(coordl22);
+   
+    System.out.println(coordl11+"hellooo my current...."+coordl22);
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		   Log.d("Latitude","status");
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+		  Log.d("Latitude","enable");
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+		 Log.d("Latitude","disable");
+
+	}
+	
+	
+	
+	
+}

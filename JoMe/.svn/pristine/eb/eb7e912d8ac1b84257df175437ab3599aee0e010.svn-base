@@ -1,0 +1,297 @@
+package com.nfreespace.app.android.JoMe;
+
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class Invite_friends extends Activity  {
+	 GridView gridview ;
+	 String url_login ;
+	 String fb_ids , iD ;
+	 Double lat,longi ;
+	 
+	/* static final String[] images = new String[] { 
+			"A", "B", "C", "D", "E",
+			"F", "G", "H", "I", "J",
+			"K", "L", "M", "N", "O",
+			"P", "Q", "R", "S", "T",
+			"U", "V", "W", "X", "Y", "Z"};*/
+	  
+	 public void onCreate(Bundle savedInsatanceState) {
+		 super.onCreate(savedInsatanceState);
+		 setContentView(R.layout.sort_friend_connection);
+		 
+		 gridview = (GridView) findViewById(R.id.grid_view);
+		 
+//		 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//					android.R.layout.simple_list_item_1, images);
+	 
+//			gridview.setAdapter(adapter);
+	 
+			gridview.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+				   Toast.makeText(getApplicationContext(),
+					((TextView) v).getText(), Toast.LENGTH_SHORT).show();
+				}
+			});
+			
+			  url_login="http://112.196.34.179/event_proj/invite_all_fb_friends.php"; //?userid="+iD+"&fbids="+fb_ids;
+				System.out.println("url_login"+url_login);
+				
+				frndsinvite_webservice loginwebservice=new frndsinvite_webservice();
+				loginwebservice.execute(new String[] { url_login });
+			
+		 
+	 }
+	 
+	 private class frndsinvite_webservice extends AsyncTask<String, Integer, String> {
+		 
+		   InputStream is;
+			String result;
+			JSONObject jArray = null;
+			String userId,userFriendsID ;
+			String id,friends_id, firstname,lastname,username,interest,profile_pic;
+			ProgressDialog dialog = new ProgressDialog(Invite_friends.this);
+			LazyAdapter adapter;
+			 @Override
+		        protected void onPreExecute() {
+				// Toast.makeText(Login.this,"asynch task",Toast.LENGTH_LONG).show();
+				 dialog.setMessage("Loading....please wait ");
+					dialog.setCancelable(false);
+				dialog.show();
+		        }
+			
+			 Intent intent = getIntent();
+			 String fb_ids = intent.getExtras().getString("friends_id");
+			 
+			 @Override
+			protected String doInBackground(String... params) {
+				// TODO Auto-generated method stub
+			
+				DefaultHttpClient httpclient;
+				HttpPost httppost;
+			
+				try {
+					 httpclient = new DefaultHttpClient();
+					 httppost = new HttpPost("http://112.196.34.179/event_proj/invite_all_fb_friends.php");
+				} catch (Exception e) {
+					// TODO: handle exception
+					System.out.println("Server response error ");
+					return null;
+				}
+					ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+							
+//							nameValuePairs.add(new BasicNameValuePair("userid", iD));
+							nameValuePairs.add(new BasicNameValuePair("fbid", fb_ids));
+							
+
+							Log.d("nameValuePairs", "nameValuePairs" + nameValuePairs);
+								try {
+								httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+								System.out.println(httppost);
+							} catch (UnsupportedEncodingException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+
+							HttpResponse response = null;
+							try {
+								response = httpclient.execute(httppost);
+							} catch (ClientProtocolException e) {
+
+								System.out.println("response catch block");
+								e.printStackTrace();
+							} catch (IOException e) {
+
+								e.printStackTrace();
+							}
+							if (response != null) {
+
+								HttpEntity entityy = response.getEntity();
+								try {
+									is = entityy.getContent();
+								} catch (IllegalStateException e) {
+
+									System.out.println("is catch block");
+									e.printStackTrace();
+								} catch (IOException e) {
+
+									e.printStackTrace();
+									System.out.println("is catch block");
+								}
+
+							}
+
+							if (is != null) {
+
+								StringBuilder sb = new StringBuilder();
+								BufferedReader reader = null;
+								try {
+									reader = new BufferedReader(new InputStreamReader(is,
+											"iso-8859-1"), 8);
+								} catch (UnsupportedEncodingException e) {
+
+									e.printStackTrace();
+								}
+
+								System.out.println("aaaaaaaaaa");
+
+								sb = new StringBuilder();
+								try {
+									sb.append(reader.readLine() + "\n");
+								} catch (IOException e) {
+
+									e.printStackTrace();
+									System.out.println("sb catch block");
+								}
+
+								System.out.println("sssssssss");
+								String line = "0";
+								try {
+									while ((line = reader.readLine()) != null) {
+										sb.append(line + "\n");
+
+									}
+								} catch (IOException e) {
+
+									e.printStackTrace();
+									System.out.println("reader.read line catch block");
+								}
+
+								try {
+									is.close();
+								} catch (IOException e) {
+
+									e.printStackTrace();
+									System.out.println("is close catch block");
+								}
+								System.out.println("nnnnnnnnnnn");
+								System.out.println(sb);
+								result = sb.toString();
+//							   System.out.println("------friends data" + result + "gdgtyugf----");
+							}	
+						
+							
+							try {
+								JSONObject userdetail= new JSONObject(result);
+								JSONArray arr = userdetail.getJSONArray("data");
+			                    
+								ArrayList<GetCategory1> al = new ArrayList<GetCategory1>(); 
+								GetCategory1 values = new GetCategory1();
+								for(int i=0;i<arr.length();i++) {
+									JSONObject c = arr.getJSONObject(i);
+									
+									 values.username = c.getString("username"); 
+									 values.Profile_pic = c.getString("profile_pic");
+									 
+									 al.add(values);
+								}
+								
+						} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+
+				
+				return null;
+	 
+	 }
+			 
+			 public void onPostExecute(String result){
+//				 adapter = new LazyAdapter(getActivity(), parentItems);
+
+//					child_list.setAdapter(adapter);
+
+					dialog.dismiss();
+			
+			 
+			 }
+			 
+	 } 
+	 
+	 public class LazyAdapter extends BaseAdapter {
+			String _imgurl = "";
+			private Activity activity;
+			private ArrayList<GetCategory1> _items;
+			private LayoutInflater inflater = null;
+
+			// public ImageLoader imageLoader;
+
+			public ImageLoader imageLoader;
+
+			// int count = 10;
+
+			public LazyAdapter(Activity activity, ArrayList<GetCategory1> parentItems) {
+
+				// this.imageLoader.clearCache();
+				this.activity = activity;
+				this._items = parentItems;
+//				inflater = (LayoutInflater) getActivity()
+//						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//				imageLoader = new ImageLoader(getActivity());
+			}
+
+			@Override
+			public int getCount() {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public Object getItem(int position) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public long getItemId(int position) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+	 }
+	 
+
+}

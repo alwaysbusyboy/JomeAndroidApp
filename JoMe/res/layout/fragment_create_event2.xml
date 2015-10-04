@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3099b9" >
+
+        <Button
+            android:id="@+id/backbtn"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/back_icon" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/headerText"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+    </RelativeLayout>
+    
+    <LinearLayout
+       android:id="@+id/linearLayout1"
+       android:layout_width="match_parent"
+       android:layout_height="55dp"
+       android:layout_alignParentBottom="true"
+       android:orientation="horizontal"
+       android:weightSum="120" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+            <Button
+                android:id="@+id/btnFriendUpdate"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_friend_update" />
+            
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3099b9" >
+            
+            <Button
+                android:id="@+id/btnEventHistory"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_past_event" />
+            
+        </RelativeLayout>
+        
+         
+       <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+            <Button
+                android:id="@+id/btnMessage"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_messager" />
+            
+        </RelativeLayout>
+        
+       <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="20"
+           android:background="#3099b9" >
+            
+            <Button
+                android:id="@+id/btnSetting"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_setting" />
+            
+        </RelativeLayout>
+        
+           
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+        	<Button
+        	    android:id="@+id/btnInvitationManager"
+        	    style="?android:attr/buttonBarButtonStyle"
+        	    android:layout_width="50dp"
+        	    android:layout_height="50dp"
+        	    android:layout_centerInParent="true"
+        	    android:layout_weight="20"
+        	    android:background="@drawable/bottom_profile" />
+
+        </RelativeLayout>
+       
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3099b9" >
+            
+	        <Button
+	            android:id="@+id/btnHome"
+	            style="?android:attr/buttonBarButtonStyle"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:layout_centerInParent="true"
+	            android:layout_weight="20"
+	            android:background="@drawable/bottom_home" />
+
+        </RelativeLayout>
+    </LinearLayout>
+    
+     <RelativeLayout
+        android:id="@+id/adlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/linearLayout1"
+        android:layout_centerHorizontal="true" >
+
+    </RelativeLayout>
+  
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/adlayout"
+        android:layout_below="@+id/relativeLayout1" >
+    
+	    <LinearLayout
+	        android:id="@+id/linearLayout1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical"
+	        android:paddingBottom="50dp" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_rect_bg"
+            android:padding="10dp" >
+
+            <EditText
+                android:id="@+id/edtEventName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:hint="@string/eventNameHint"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                android:textSize="15sp" >
+
+            </EditText>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_rect_bg"
+            android:paddingBottom="30dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp" >
+
+            <EditText
+                android:id="@+id/edtDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:hint="@string/eventNameDesc"
+                android:isScrollContainer="true"
+                android:singleLine="true"
+                android:textColor="#000000"
+                android:textColorHint="#000000"
+                android:textSize="15sp" >
+
+            </EditText>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeVenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp" >
+
+            <Button
+                android:id="@+id/btnaddvenue"
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/btn_lets_jo_sel"
+                android:text="Set Place"
+                android:textColor="#ffffff"
+                android:textSize="15sp" />
+             
+            <TextView
+                android:id="@+id/txtplaceset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="Place Set"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+            
+            <ImageView
+                android:id="@+id/imageview_check"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/txtplaceset"
+                android:background="@drawable/checkbox_bg" />
+      
+       </RelativeLayout>
+       
+       <RelativeLayout
+           android:id="@+id/relativelatlon"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="20dp"
+           android:layout_marginRight="20dp"
+           android:paddingRight="10dp" >
+            
+            <TextView
+                android:id="@+id/txtlng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/event_longitude"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+            
+            <TextView
+                android:id="@+id/txtlat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/txtlng"
+                android:text="@string/event_latitude"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+        </RelativeLayout>
+       
+        <RelativeLayout
+            android:id="@+id/Relativestarttime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edit_rect_bg"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/starttxtTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/event_start"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/Relativeendtime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_rect_bg"
+            android:padding="10dp" >
+            
+             <TextView
+                 android:id="@+id/endtxtTime"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:text="@string/event_end"
+                 android:textColor="#000000"
+                 android:textSize="15sp" />
+            
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeInvite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp" >
+
+            <CheckBox
+                android:id="@+id/checkbox_invite_nearby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onCheckboxClicked"
+                android:text="Invite Nearby User"
+                android:textColor="#000000"
+                android:textSize="15sp" />
+      
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/Relativecheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp" >
+        
+           <CheckBox
+               android:id="@+id/checkbox_public"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:onClick="onCheckboxClicked"
+               android:text="Is Public Event ?"
+               android:textColor="#000000"
+               android:textSize="15sp" />
+
+        </RelativeLayout>
+
+       <Button
+           android:id="@+id/createevent"
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:layout_gravity="center_horizontal"
+           android:layout_margin="20dp"
+           android:background="@drawable/btn_lets_jo_sel"
+           android:text="Create Event"
+           android:textColor="#ffffff"
+           android:textSize="20sp" />
+   
+   </LinearLayout>
+ 
+ </ScrollView>  
+ 
+   
+
+</RelativeLayout>

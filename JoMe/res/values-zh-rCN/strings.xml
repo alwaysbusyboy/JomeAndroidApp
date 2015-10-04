@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- Simplified Chinese, /res/values-zh-rTW, for China, Singapore -->
+    
+    <!-- All String values -->
+    <string name="app_name">纠团</string>
+    <string name="action_settings">设置</string>
+    <string name="hello_world">大家好，一起来纠团</string>
+    <string name="headerText">来纠团</string>
+    <string name="eventNameHint">活动名称</string>
+    <string name="eventNameDesc">活动内容</string>
+    <string name="venue">地点</string>
+    <string name="sliderDesc">Slider description</string>
+    <string name="NoEvent">你最近没有活动</string>
+    <string name="imageDescLetsJo">来纠团</string>
+    <string name="done">完成</string>
+    <string name="Start">开始</string>
+    <string name="invite_more">邀请朋友</string>
+    <string name="fifty">50</string>
+    <string name="Attend">参加</string>
+    <string name="thirty">30</string>
+    <string name="add">添加</string>
+    <string name="time_today_9pm_or_set">时间：今天晚上9点</string>
+    <string name="invite_setting_nearby">邀请附近朋友</string>
+    <string name="end">退出</string>
+    <string name="_10_00pm">晚上10点</string>
+    <string name="all_day">全天</string>
+    <string name="today_8_00pm">今天晚上8点</string>
+    <string name="whtsInmind_Hint">你在想什么？</string>
+    <string name="send_status">送出</string>
+    <string name="nearby">附近</string>
+
+    
+    <string name="app_id">590176497746651</string>
+    <string name="exception">Exception: %1$s</string>
+    
+    <!-- All Dimen values -->
+    <dimen name="margin_left_right">7dp</dimen>
+    <dimen name="margin_left_Layout">20dp</dimen>
+    <dimen name="margin_right_layout">20dp</dimen>
+    <dimen name="margin_Top_Layout">20dp</dimen>
+    <dimen name="margin_top">5dp</dimen>
+    
+    <dimen name="text_size_header">25sp</dimen>
+    
+    
+    
+    
+    <string name="post_on_wall_title">分享</string>
+    <string name="post_on_wall">分享到 %1$s\'s ?</string>
+    <string name="yes">确认</string>
+    <string name="no">取消</string>
+
+</resources>

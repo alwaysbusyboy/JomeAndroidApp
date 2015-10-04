@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    
+     <RelativeLayout
+         android:id="@+id/relativeLayout1"
+         android:layout_width="match_parent"
+         android:layout_height="50dp"
+         android:layout_alignParentTop="true"
+         android:background="#3099b9" >
+
+        <Button
+            android:id="@+id/btnBrowser"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/nav_browser_icon" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/headerText"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/btnBell"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/nav_bell_icon" />
+    </RelativeLayout>
+    
+            <RelativeLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeLayout1"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal" >
+           
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/nearby"
+                    android:textColor="#5E5E5E"
+                    android:textSize="20sp" />
+
+               <Button
+                   android:id="@+id/selectBtn"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentRight="true"
+                   android:layout_centerVertical="true"
+                   android:layout_marginRight="10dp"
+                   android:background="@drawable/select_all_icon" />
+               
+              <!-- <ImageView
+                    android:id="@+id/select_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/select_all_icon" /> -->
+          
+                </RelativeLayout>
+        
+  <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="120" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+            <Button
+                android:id="@+id/btnFriendUpdate"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_friend_update" />
+            
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3099b9" >
+            
+            <Button
+                android:id="@+id/btnEventHistory"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_past_event" />
+            
+        </RelativeLayout>
+        
+         
+       <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+            <Button
+                android:id="@+id/btnMessage"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_messager" />
+            
+        </RelativeLayout>
+        
+       <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="20"
+           android:background="#3099b9" >
+            
+            <Button
+                android:id="@+id/btnSetting"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_setting" />
+            
+        </RelativeLayout>
+        
+           
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+        	<Button
+        	    android:id="@+id/btnInvitationManager"
+        	    style="?android:attr/buttonBarButtonStyle"
+        	    android:layout_width="50dp"
+        	    android:layout_height="50dp"
+        	    android:layout_centerInParent="true"
+        	    android:layout_weight="20"
+        	    android:background="@drawable/bottom_profile" />
+
+        </RelativeLayout>
+       
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3099b9" >
+            
+	        <Button
+	            android:id="@+id/btnHome"
+	            style="?android:attr/buttonBarButtonStyle"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:layout_centerInParent="true"
+	            android:layout_weight="20"
+	            android:background="@drawable/bottom_home" />
+
+        </RelativeLayout>
+    </LinearLayout>
+    
+    <GridView
+        android:id="@+id/grid_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/linearLayout1"
+        android:layout_below="@id/linearLayout2"
+        android:columnWidth="90dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" >
+ 
+   </GridView>
+</RelativeLayout>

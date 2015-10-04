@@ -1,0 +1,7 @@
+package com.example.event_app;
+
+public class EventInfo {
+
+public String mEventid,mEventvenue,mEvent_start_datetime,mEventdescription,mEventname,mEventplace,mDetailText,mDetailTime,mIsRealTime,mIsCancelled;
+}
+//{"eventid":"254","eventname":"254","eventplace":"Holloway","detailText":"3 sample","detailTime":"10:21","isRealTime":true,"isCancelled":false}

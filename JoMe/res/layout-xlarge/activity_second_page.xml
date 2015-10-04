@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/third"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#3099b9" >
+
+        <Button
+            android:id="@+id/btnaddvenue"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/cross_icon" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="Page-Create"
+            android:textColor="#ffffff"
+            android:textSize="50sp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/add_icon" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/four"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/third"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/event_name_bg"
+            android:orientation="horizontal"
+            android:padding="20dp" >
+
+            <TextView
+                android:id="@+id/firstText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="Event Name"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="normal" >
+
+            </TextView>
+           "
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/event_name_bg"
+            android:orientation="horizontal"
+            android:padding="20dp" >
+
+            <TextView
+                android:id="@+id/secondText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="Event Discription"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="normal" >
+
+            </TextView>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/event_name_bg"
+            android:orientation="horizontal"
+            android:padding="20dp" >
+
+            <TextView
+                android:id="@+id/textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="Venue"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="normal" >
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textview"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:text="Time: Today 9pm or set"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="normal" >
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:gravity="right"
+                android:text="Add"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="normal" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ttt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/event_name_bg"
+            android:orientation="horizontal"
+            android:padding="20dp" >
+
+            <TextView
+                android:id="@+id/secon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="Invite setting Nearby"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                android:textStyle="normal" >
+
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+<LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="120" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+            <Button
+                android:id="@+id/btnFriendUpdate"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_friend_update" />
+            
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3099b9" >
+            
+            <Button
+                android:id="@+id/btnEventHistory"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_past_event" />
+            
+        </RelativeLayout>
+        
+         
+       <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+            <Button
+                android:id="@+id/btnMessage"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_messager" />
+            
+        </RelativeLayout>
+        
+       <RelativeLayout
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="20"
+           android:background="#3099b9" >
+            
+            <Button
+                android:id="@+id/btnSetting"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="20"
+                android:background="@drawable/bottom_setting" />
+            
+        </RelativeLayout>
+        
+           
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3da7c7" >
+            
+        	<Button
+        	    android:id="@+id/btnInvitationManager"
+        	    style="?android:attr/buttonBarButtonStyle"
+        	    android:layout_width="120dp"
+        	    android:layout_height="120dp"
+        	    android:layout_centerInParent="true"
+        	    android:layout_weight="20"
+        	    android:background="@drawable/bottom_profile" />
+
+        </RelativeLayout>
+       
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="#3099b9" >
+            
+	        <Button
+	            android:id="@+id/btnHome"
+	            style="?android:attr/buttonBarButtonStyle"
+	            android:layout_width="120dp"
+	            android:layout_height="120dp"
+	            android:layout_centerInParent="true"
+	            android:layout_weight="20"
+	            android:background="@drawable/bottom_home" />
+
+        </RelativeLayout>
+    </LinearLayout>
+   
+</RelativeLayout>

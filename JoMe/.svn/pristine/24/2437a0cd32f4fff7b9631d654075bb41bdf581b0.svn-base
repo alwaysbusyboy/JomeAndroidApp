@@ -1,0 +1,221 @@
+package com.example.event_app;
+
+import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+
+
+
+public class add_venue extends FragmentActivity implements OnMarkerClickListener, OnClickListener, LocationListener {
+	
+	static LatLng HAMBURG = new LatLng(40.551974, -105.037181);
+	LatLng point;
+	Marker kiel;
+	Button 	btnCross,search;
+	double mLatitude = 0;
+	double mLongitude = 0;
+//	Location location;
+//	LocationManager lm;
+//	String provider;
+	EditText edtSearch;
+	private GoogleMap map;
+	 
+	  
+
+	  
+//	  private static final LatLng BROOKLYN_BRIDGE = new LatLng(40.7057, -73.9964);
+
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.add_venue);
+		btnCross = (Button) findViewById(R.id.btnCrose);
+		
+		// Cross button coding
+		btnCross.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent itCrose = new Intent(getApplicationContext(),
+						CreateEventPage1.class);
+				startActivity(itCrose);
+			}
+		});
+		// ---end of cross button
+		
+
+
+        map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+          abc();
+          
+  		
+  		// Getting LocationManager object from System Service LOCATION_SERVICE
+  				LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+  				// Creating a criteria object to retrieve provider
+  				Criteria criteria = new Criteria();
+
+  				// Getting the name of the best provider
+  				String provider = locationManager.getBestProvider(criteria, true);
+
+  				// Getting Current Location From GPS
+  				Location location = locationManager.getLastKnownLocation(provider);
+
+  				if (location != null) {
+
+  					mLatitude = (location.getLatitude());
+  					mLongitude = (location.getLongitude());
+  					// mLatitude = 43.849998;
+  					// mLongitude = -76.000000;
+  					locataion(mLatitude, mLongitude);
+  				}
+
+
+		
+	        
+		
+//		search=(Button)findViewById(R.id.search);
+	/*	search.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+				if(edtSearch.isShown()){
+						edtSearch.setVisibility(View.GONE);
+					}
+					else{
+						edtSearch.setVisibility(View.VISIBLE);
+					}
+				}
+			});*/
+		
+	 }
+	
+	
+	
+	private void locataion(double mLatitude2, double mLongitude2) {
+		// TODO Auto-generated method stub
+		point = new LatLng(mLatitude2, mLongitude2);
+
+		kiel = ((GoogleMap) map)
+				.addMarker(new MarkerOptions()
+						.position(point)
+						.title("My current location")
+						.snippet(" ")
+						.icon(BitmapDescriptorFactory
+								.fromResource(R.drawable.pin_red)));
+
+		map.moveCamera(CameraUpdateFactory.newLatLng(point));
+		map.animateCamera(CameraUpdateFactory.zoomTo(12));
+
+//		plotRoute();
+	}
+
+	
+	
+	
+	// /////////////....................
+		public void abc() {
+
+			double latt = 5.55;
+			double logg = 33.44;
+
+			map.setOnMarkerClickListener(this);
+
+			kiel = ((GoogleMap) map)
+					.addMarker(new MarkerOptions()
+							.position(HAMBURG)
+							.title("2608 S Timberline Rd,Fort Collinns")
+							.snippet(" ")
+							.icon(BitmapDescriptorFactory
+									.fromResource(R.drawable.pin_red)));
+
+			map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+
+				@Override
+				public void onInfoWindowClick(Marker marker) {
+
+					// Toast.makeText(Mapp.this,"this is for test",
+					// 500).show();
+				}
+			});
+
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(HAMBURG, 15));
+			map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+
+			HAMBURG = null;
+
+		}
+		
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			// Inflate the menu; this adds items to the action bar if it is
+			// present.
+			getMenuInflater().inflate(R.menu.main, menu);
+			return true;
+		}
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public boolean onMarkerClick(Marker arg0) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		mLatitude = location.getLatitude();
+		mLongitude = location.getLongitude();
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	
+	
+	
+}

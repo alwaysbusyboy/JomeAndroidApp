@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/list_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:background="@drawable/edit_bg_round"
+        android:padding="20dp" >
+        
+        <TextView
+            android:id="@+id/reply_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reply message"
+            android:textColor="#000000"
+            android:textSize="30sp" />
+
+         <TextView
+             android:id="@+id/reply_time"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:layout_below="@id/reply_message"
+             android:layout_marginTop="20dp"
+             android:text="2014-2-4"
+             android:textColor="#000000"
+             android:textSize="25sp" />
+         
+        <TextView
+            android:id="@+id/reply_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/reply_time"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@id/reply_time"
+            android:text="by Jang"
+            android:textColor="#3099b9"
+            android:textSize="30sp" />
+        
+    </RelativeLayout>
+</RelativeLayout>

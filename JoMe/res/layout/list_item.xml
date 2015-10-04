@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent">
+  
+    <RelativeLayout
+        android:id="@+id/item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp" >
+        
+        <ImageView
+            android:id="@+id/icon_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:src="@drawable/by_friend_icon" />
+ 
+   		<TextView
+   		    android:id="@+id/eventname"
+   		    android:layout_width="wrap_content"
+   		    android:layout_height="wrap_content"
+   		    android:layout_alignTop="@+id/icon_image"
+   		    android:layout_marginLeft="10dp"
+   		    android:layout_marginTop="10dp"
+   		    android:layout_toRightOf="@+id/icon_image"
+   		    android:ellipsize="end"
+   		    android:singleLine="true"
+   		    android:text="@string/eventNameHint"
+   		    android:textColor="#000000"
+   		    android:textSize="15sp" />
+  
+	   <TextView
+	       android:id="@+id/distance"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:layout_alignBottom="@+id/icon_image"
+	       android:layout_marginBottom="10dp"
+	       android:layout_marginLeft="10dp"
+	       android:layout_toRightOf="@+id/icon_image"
+	       android:text="distance"
+	       android:textColor="#000000"
+	       android:textSize="15sp" />
+   	   
+   	    <TextView
+   	        android:id="@+id/time"
+   	        android:layout_width="wrap_content"
+   	        android:layout_height="wrap_content"
+   	        android:layout_alignParentRight="true"
+   	        android:layout_alignTop="@+id/distance"
+   	        android:layout_marginLeft="10dp"
+   	        android:layout_marginRight="25dp"
+   	        android:ellipsize="end"
+   	        android:singleLine="true"
+   	        android:text="Time"
+   	        android:textColor="#000000"
+   	        android:textSize="15sp" />
+   	    
+   	     <TextView
+   	         android:id="@+id/friendsinvite"
+   	         android:layout_width="wrap_content"
+   	         android:layout_height="wrap_content"
+   	         android:layout_alignParentRight="true"
+   	         android:layout_alignTop="@+id/eventname"
+   	         android:layout_marginLeft="22dp"
+   	         android:layout_marginRight="25dp"
+   	         android:text="fiends Invite"
+   	         android:textColor="#000000"
+   	         android:textSize="15sp" />
+ 
+    </RelativeLayout>
+   
+ </RelativeLayout>

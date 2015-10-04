@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/dialog_layout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edit_receive_bg"
+        android:padding="1dp" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="Are you confirm to delete the event?"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:id="@+id/btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/title"
+            android:layout_margin="1dp"
+            android:background="@drawable/edit_blue_round_bg"
+            android:padding="2dp"
+            android:paddingTop="1dp"
+            android:weightSum="300" >
+
+            <Button
+                android:id="@+id/cancelBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="149"
+                android:background="@drawable/empty"
+                android:text="Cancel"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <RelativeLayout 
+                android:id="@+id/empty_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                >
+                
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/okBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="149"
+                android:background="@drawable/edit_receive_bg"
+                android:text="Confirm"
+                android:textColor="#3099b9"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

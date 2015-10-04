@@ -1,0 +1,123 @@
+package com.example.event_app;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class add_venue extends Activity implements LocationListener {
+
+	Button 	btnCross;
+	double lat;
+	double lng;
+	Location location;
+	LocationManager lm;
+	String provider;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.add_venue);
+		btnCross = (Button) findViewById(R.id.btnCrose);
+		
+		// Cross button coding
+		btnCross.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent itCrose = new Intent(getApplicationContext(),
+						CreateEventPage1.class);
+				startActivity(itCrose);
+			}
+		});
+		// ---end of cross button
+		
+		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+		Criteria c = new Criteria();
+		
+		 // Getting the name of the provider that meets the criteria
+        provider = lm.getBestProvider(c, false);
+ 
+        if(provider!=null && !provider.equals("")){
+ 
+            // Get the location from the given provider
+            Location location = lm.getLastKnownLocation(provider);
+ 
+            lm.requestLocationUpdates(provider, 20000, 1, this);
+ 
+            if(location!=null)
+                onLocationChanged(location);
+            else
+                Toast.makeText(getBaseContext(), "Location can't be retrieved", Toast.LENGTH_SHORT).show();
+ 
+        }else{
+            Toast.makeText(getBaseContext(), "No Provider Found", Toast.LENGTH_SHORT).show();
+        }
+        GoogleMap map;
+		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+				.getMap();
+		map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(
+				"current location"));
+    }
+//		
+////	     lm=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
+////		 lm.requestLocationUpdates(
+////		 lat=location.getLatitude();
+////		 lng=location.getLongitude();
+//		String str = Double.toString(lat);
+//		String str1 = Double.toString(lng);
+//		Toast.makeText(getApplicationContext(), str, 0).show();
+//		Toast.makeText(getApplicationContext(), str1, 0).show();
+//
+//		GoogleMap map;
+//		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+//				.getMap();
+//		map.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title(
+//				"current location"));
+//
+//	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		lat = location.getLatitude();
+		lng = location.getLongitude();
+		String str = Double.toString(lat);
+		String str1 = Double.toString(lng);
+		Toast.makeText(getApplicationContext(), str, 0).show();
+		Toast.makeText(getApplicationContext(), str1, 0).show();
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+
+	}
+}

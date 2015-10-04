@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    
+  	<RelativeLayout
+  	    android:id="@+id/relativeLayout1"
+  	    android:layout_width="fill_parent"
+  	    android:layout_height="100dp"
+  	    android:background="#3099b9" >
+
+        <Button
+            android:id="@+id/btnCrose"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/back_icon" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Chatting"
+            android:textColor="#FFFFFF"
+            android:textSize="50sp" />
+
+   </RelativeLayout>
+   
+   <RelativeLayout
+       android:id="@+id/message_edit_layout"
+       android:layout_width="fill_parent"
+       android:layout_height="100dp"
+       android:layout_alignParentBottom="true"
+       android:background="#dedede" >
+        
+       <Button
+           android:id="@+id/message_send"
+           android:layout_width="100dp"
+           android:layout_height="100dp"
+           android:layout_alignParentRight="true"
+           android:background="@drawable/btn_send_sel" />
+        
+       <EditText
+           android:id="@+id/message_edit"
+           android:layout_width="fill_parent"
+           android:layout_height="80dp"
+           android:layout_centerVertical="true"
+           android:layout_marginLeft="20dp"
+           android:layout_marginRight="10dp"
+           android:layout_toLeftOf="@id/message_send"
+           android:background="@drawable/edit_rect_bg"
+           android:hint="Please enter message"
+           android:paddingLeft="20dp"
+           android:textColor="#000000"
+           android:textSize="30sp" />
+       
+   </RelativeLayout>	
+   
+   <RelativeLayout
+       android:id="@+id/message_list_layout"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       android:layout_above="@id/message_edit_layout"
+       android:layout_below="@id/relativeLayout1"
+       android:padding="10dp" >
+
+       <ListView
+           android:id="@+id/message_list"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:divider="#ffffff"
+           android:dividerHeight="10dp" >
+           
+       </ListView>
+       
+   </RelativeLayout>
+
+</RelativeLayout>

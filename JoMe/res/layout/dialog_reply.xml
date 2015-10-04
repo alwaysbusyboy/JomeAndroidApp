@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:id="@+id/dialog_layout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/edit_receive_bg"
+        android:padding="10dp" >
+
+        <EditText
+            android:id="@+id/reply_edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/edit_bg_round"
+            android:gravity="top|left"
+            android:hint="Please enter reply message"
+            android:paddingBottom="30dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+       
+        <Button
+            android:id="@+id/replyBtn"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/reply_edit"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_weight="149"
+            android:background="@drawable/btn_lets_jo_sel"
+            android:text="Reply"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+       
+    </RelativeLayout>
+
+</RelativeLayout>

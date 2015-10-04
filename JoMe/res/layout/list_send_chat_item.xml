@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:id="@+id/send_marklayout"
+        android:layout_width="15dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp" >
+        
+        <ImageView
+            android:id="@+id/send_mark"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/message_send" />
+        
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/send_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:layout_toLeftOf="@id/send_marklayout"
+        android:background="@drawable/edit_send_bg"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="10dp" >
+     
+        <TextView
+            android:id="@+id/send_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="asdfasdfasdfasdfasf"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/send_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/send_message"
+            android:layout_marginTop="5dp"
+            android:gravity="right"
+            android:text="Apr. 20th, 10:11pm"
+            android:textColor="#93cbff"
+            android:textSize="15sp" />
+        
+    </RelativeLayout>
+
+</RelativeLayout>

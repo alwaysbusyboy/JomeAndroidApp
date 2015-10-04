@@ -1,0 +1,358 @@
+package com.nfreespace.app.android.JoMe;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.text.Html;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class CreateEventPage2 extends Activity  {
+	EditText edtEventName, edtDesc;
+	Button btnCross, btnAddVenue;
+	Button btnCreate;		// for creating event
+	TextView txtshowtime, invite_nearby;
+	ConnectionDetector cd;
+	Boolean isInternetPresent = false;
+    String url_nearbyevent;
+    double lat,lng ;
+	
+	
+	 boolean pickFriendsWhenSessionOpened;
+	 
+	 public static final int EVENT_PAGE2 = 1;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.create_event_page2);
+		btnCreate=(Button)findViewById(R.id.btnCreate);
+		btnCross = (Button) findViewById(R.id.btnCrose);
+		txtshowtime=(TextView)findViewById(R.id.txtTime);
+		edtEventName=(EditText)findViewById(R.id.edtEventName); 
+		edtDesc=(EditText)findViewById(R.id.edtDesc);
+		
+		invite_nearby = (TextView)findViewById(R.id.invite_nearby);
+		
+		//Create button coding
+		
+		btnCreate.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//validation on event name and decription 
+				if(edtEventName.getText().toString().length()==0){
+					edtEventName.setError(Html.fromHtml("<font color='red'>Event name is required</font>"));
+					edtEventName.requestFocus();
+				}
+				if(edtDesc.getText().toString().length()==0){
+					edtDesc.setError(Html.fromHtml("<font color='red'>Event description is required</font>"));
+					edtDesc.requestFocus();
+				}
+				else {
+					Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_LONG).show();
+				}
+		
+			}
+		});
+		
+		
+		
+		
+		//Selecting set time page
+		
+		txtshowtime.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent itSettime=new Intent(getApplicationContext(), set_date_time.class);
+				 Bundle b = new Bundle();
+				 b.putString("txtshowtime", txtshowtime.getText().toString());
+				  itSettime.putExtras(b);
+				  startActivityForResult(itSettime,EVENT_PAGE2);
+			}
+		});
+		
+		
+		
+		
+		
+		btnAddVenue = (Button) findViewById(R.id.btnaddvenue);
+
+		// Cross button coding
+		btnCross.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent itCrose = new Intent(getApplicationContext(),
+						CreateEventPage1.class);
+				startActivity(itCrose);
+			}
+		});
+		// ---end of cross button
+
+		// --Add venue button coding
+
+		btnAddVenue.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			
+				Intent itAddVenue = new Intent(getApplicationContext(),
+						add_venue.class);
+			
+				startActivity(itAddVenue);
+			}
+		});
+		
+		invite_nearby.setOnClickListener(new View.OnClickListener() {
+		
+			
+			public void onClick(View arg0) {
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateEventPage2.this) ;
+			    alertDialog.setTitle("Confirm Box..."); //set title
+			   
+//			    alertDialog.setMessage("Hello....! "); //set Message
+//			    alertDialog.setIcon(R.drawable.ic_launcher); //set icon/image
+			    alertDialog.setPositiveButton("Sort By Distance Interest",
+			            new DialogInterface.OnClickListener() {
+			       public void onClick(DialogInterface dialog, int Button) {
+			            	
+			    	   Intent intent = getIntent();
+						String fb_ids = intent.getExtras().getString("friends_id");
+						String iD = intent.getExtras().getString("user_id");
+//						System.out.println("-----------   friends data--- "+ fb_ids + "");
+						Intent invitebyinterest = new Intent(getApplicationContext(),
+								Invite_friends_distance_interest.class);
+						invitebyinterest.putExtra("friends_id", fb_ids);
+						invitebyinterest.putExtra("user_id", iD);
+						
+						startActivity(invitebyinterest);   	
+//			    Toast.makeText(getApplicationContext(), "You clicked on Sort By Distance Interest", Toast.LENGTH_SHORT).show();
+			        
+//			        invite_nearby.setText("Sort By Distance Interest Button clicked");
+			        }
+			            });
+			        alertDialog.setNegativeButton("Sort By Friend Connection",
+			        new DialogInterface.OnClickListener() {
+			        public void onClick(DialogInterface dialog,int Button) {
+			        	  Intent intent = getIntent();
+							String fb_ids = intent.getExtras().getString("friends_id");
+							String iD = intent.getExtras().getString("user_id");
+//							System.out.println("-----------   friends data--- "+ fb_ids + "");
+							Intent inviteNearby = new Intent(getApplicationContext(),
+									Invite_friends.class);
+							inviteNearby.putExtra("friends_id", fb_ids);
+							inviteNearby.putExtra("user_id", iD);
+							
+							startActivity(inviteNearby);   	
+//			        Toast.makeText(getApplicationContext(), "You clicked on Sort By Friend Connection", Toast.LENGTH_SHORT).show();
+//			        invite_nearby.setText("Sort By Friend Connection Button clicked");
+			                                }
+			                            });
+			    alertDialog.show();
+			 
+			            }
+			        });
+			
+	/*	
+		invite_nearby.setOnClickListener(new View.OnClickListener() { 
+			
+			 @Override
+	            public void onClick(View arg0) {
+	                 
+	                // WebServer Request URL
+//	                String serverURL = "http://112.196.34.179/event_proj/near_by_events.php?latitude=30.7145&longitude=76.7149&distance=15";
+	                 
+	                // Use AsyncTask execute Method To Prevent ANR Problem
+	               // new LongOperation().execute(serverURL); 
+				 
+//				 isInternetPresent = cd.isConnectingToInternet();
+				 
+	              
+//	                if (isInternetPresent) {
+				System.out.println("on click invite nearbt=y freinds");
+				try {
+					System.out.println("on click nearby friends");
+				   
+					latitude = Double.toString(((double)lat.getLongitude())/1000000);
+					longitude = Double.toString(((double)lng.getLatitudeE6())/1000000);
+					
+		 			url_nearbyevent="http://112.196.34.179/event_proj/invite_by_distance.php?latitude="+lat+"&longitude="+lng ;
+		            System.out.println("url_nearbyevent"+url_nearbyevent);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
+	
+	Login_webservice loginwebservice=new Login_webservice();
+	loginwebservice.execute(new String[] { url_nearbyevent });
+			
+			 } 
+	                else {
+             // Internet connection is not present
+             // Ask user to connect to Internet
+             showAlertDialog(CreateEventPage2.this, "No Internet Connection",
+                     "You don't have internet connection.", false);
+             return;
+         }
+//			}
+		});  */
+		
+	}
+	
+
+	private class Login_webservice extends AsyncTask<String, Integer, String> {
+		
+		
+		double lat,lng ;  
+		InputStream is;
+		String result;
+		JSONObject jArray = null;
+		 @Override
+	        protected void onPreExecute() {
+			// Toast.makeText(Login.this,"asynch task",Toast.LENGTH_LONG).show();
+	        }
+		
+		@Override
+		public String doInBackground(String... url) {
+			
+			
+			try{
+				System.out.println("Asynch task started");
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpGet httppost = new HttpGet(url_nearbyevent);
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			 is = entity.getContent();
+		} catch (Exception e) {
+			Log.e("ERROR", "Error in http connection " + e.toString());
+		}
+		// convert response to string
+		try {
+			BufferedReader reader = new BufferedReader(
+					new InputStreamReader(is), 8);
+			StringBuilder sb = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			is.close();
+			result = sb.toString();
+
+		} catch (Exception e) {
+			Log.e("ERROR", "Error converting result " + e.toString());
+		}
+		Log.d("is","is-------"+result);
+		
+		
+	/*		try {
+				jArray = new JSONObject(result);
+				JSONObject data = jArray.getJSONObject("data");
+				
+				if(data.has("firstname")){
+					 firstname=data.getString("firstname");
+						Log.d("is","firstname-------"+firstname);
+						 lastname=data.getString("lastname");
+						Log.d("is","lastname-------"+lastname);
+						 email=data.getString("email");
+						Log.d("is","email-------"+email);
+						 success_login=data.getString("success");
+						Log.d("is","success_login-------"+success_login);
+						message=jArray.getString("msg");
+						Log.d("is","message-------"+message);
+				}
+				else{
+					 success_login=data.getString("success");
+						Log.d("is","success_login-------"+success_login);
+						message=jArray.getString("msg");
+						Log.d("is","message-------"+message);
+				}
+				
+			} catch (JSONException e) {
+				// TODO: handle exception
+			}*/
+
+		
+		
+		return null;
+		}
+		
+		public void onPostExecute(String resultt)
+		
+		{
+			/*if(success_login.equals("1")){
+			//Toast.makeText(Login.this,"Login Successful",Toast.LENGTH_LONG).show();
+			Intent it=new Intent(CreateEventPage2.this,Invite_distance_interest.class);
+			startActivity(it);
+		}else if(success_login.equals("0")){
+			Toast.makeText(CreateEventPage2.this,"Login Failed",Toast.LENGTH_LONG).show();
+		}*/
+			}
+	    }
+
+	
+	
+	        protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	          {
+	              switch(requestCode) {
+	              case EVENT_PAGE2:
+	                  if (resultCode == RESULT_OK) {
+	                      
+	                      Bundle bundle = data.getExtras();
+	                      
+	                      txtshowtime.setText(bundle.getString("txtshowtime"));
+//	                      System.out.println("archana");
+//							System.out.println(txtTimeDate);
+	                      break;
+	                  }
+	              }
+	          
+	             
+		
+		
+		
+		
+		
+	
+		
+	  }
+
+
+
+
+
+		// --end of add venue
+	
+	
+	
+	
+	 
+		
+	
+
+		    
+
+}

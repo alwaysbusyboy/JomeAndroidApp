@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100" >
+
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:weightSum="100" >
+            
+            <RelativeLayout
+                android:id="@+id/friend_finder_btn_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:background="#3da7c7" >
+                
+                <ImageButton
+                    android:id="@+id/friend_finder_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#3da7c7"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/friend_find_btn" />
+
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/createevent_btn_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:background="#3099b9" >
+                
+                <ImageButton
+                    android:id="@+id/createevent_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#3099b9"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/join_btn" />
+               
+            </RelativeLayout>
+            
+           
+          
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:weightSum="100" >
+            
+            <RelativeLayout
+                android:id="@+id/fetchevent_btn_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:background="#3099b9" >
+                
+                <ImageButton
+                    android:id="@+id/fetchevent_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#3099b9"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/event_radar_btn" />
+                
+            </RelativeLayout>
+ 			
+ 			<RelativeLayout
+ 			    android:id="@+id/setting_btn_layout"
+ 			    android:layout_width="0dp"
+ 			    android:layout_height="match_parent"
+ 			    android:layout_weight="50"
+ 			    android:background="#3da7c7" >
+                
+ 			    <ImageButton
+ 			        android:id="@+id/setting_btn"
+ 			        android:layout_width="match_parent"
+ 			        android:layout_height="match_parent"
+ 			        android:background="#3da7c7"
+ 			        android:scaleType="centerCrop"
+ 			        android:src="@drawable/setting_btn" />
+                
+            </RelativeLayout>
+          
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
